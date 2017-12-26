@@ -1,18 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class HelloWorld extends Component {
+class HelloUser extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: 'Luke'
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(e) {
+    this.setState({
+      username: e.target.value
+    })
+  }
+  
   render() {
     return (
-      <p className="App-intro" >
-        Hello, World!
+      <p className="App-intro">
+        Hello, {this.state.username}! <br /><br />
+        Change name: <input type="text" value={this.state.username} onChange={this.handleChange} />
       </p>
     )
   }
 }
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div className="App">
@@ -20,7 +35,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to My World</h1>
         </header>
-        <HelloWorld />
+        <HelloUser />
       </div>
     );
   }
