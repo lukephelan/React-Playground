@@ -93,6 +93,32 @@ class FriendsContainer extends React.Component {
     }
   }
 
+  // Invoked once before first render
+  componentWillMount() {
+    // Calling setState here does not cause a re-render
+    // alert('In component Will Mount');
+  }
+
+  // Invoked once after the first render
+  componentDidMount() {
+    // You now have access to this.getDOMNode()
+    // alert('In Component Did Mount');
+    // This is the lifecycle event in which you would
+    // make AJAX requests
+  }
+
+  // Invoked whenever there is a prop change
+  // Called BEFORE render
+  componentWillReceiveProps(nextProps) {
+    // Not called for the initial render
+    // Previous props can be accessed by this.props
+    // Calling setState here does not trigger an additional re-render
+    // alert('In Component Will Receive Props');
+  }
+
+  // Called IMMEDIATELY before a component is unmounted
+  componentWillUnmount() {}
+
   render() {
     return (
       <div>
@@ -107,7 +133,7 @@ class FriendsContainer extends React.Component {
 class ShowList extends React.Component {
   render() {
     var listItems = this.props.names.map(function (friend) {
-      return <li> {friend} </li>;
+      return <li key={friend}> {friend} </li>;
     });
     return (
       <div>
