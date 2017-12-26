@@ -27,6 +27,14 @@ class HelloUser extends React.Component {
   }
 }
 
+class HelloOtherUser extends React.Component {
+  render() {
+    return (
+      <div>Hello, {this.props.name}</div>
+    )
+  }
+}
+
 class App extends React.Component {
   render() {
     return (
@@ -36,6 +44,7 @@ class App extends React.Component {
           <h1 className="App-title">Welcome to My World</h1>
         </header>
         <HelloUser />
+        <HelloOtherUser name="Tyler" />
       </div>
     );
   }
