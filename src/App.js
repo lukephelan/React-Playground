@@ -16,7 +16,7 @@ class HelloUser extends React.Component {
       username: e.target.value
     })
   }
-  
+
   render() {
     return (
       <p className="App-intro">
@@ -35,6 +35,91 @@ class HelloOtherUser extends React.Component {
   }
 }
 
+class AddFriend extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      newFriend: ''
+    }
+    this.updateNewFriend = this.updateNewFriend.bind(this)
+    this.handleAddNew = this.handleAddNew.bind(this)
+  }
+
+  updateNewFriend(e) {
+    this.setState({
+      newFriend: e.target.value
+    });
+  }
+
+  handleAddNew() {
+    this.props.addNew(this.state.newFriend);
+    this.setState({
+      newFriend: ''
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <input
+          type="text"
+          value={this.state.newFriend}
+          onChange={this.updateNewFriend} />
+        <button onClick={this.handleAddNew}> Add Friend </button>
+      </div>
+    )
+  }
+}
+
+class FriendsContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'Tyler Durden',
+      friends: [
+        'Jack Johnson',
+        'Jimmy Barnes',
+        'Randy Rhoads'
+      ]
+    }
+    this.addFriend = this.addFriend.bind(this)
+  }
+
+  addFriend(friend) {
+    if (friend) {
+      this.setState({
+        friends: this.state.friends.concat([friend])
+      })
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <h3> Name: {this.state.name} </h3>
+        <AddFriend addNew={this.addFriend} />
+        <ShowList names={this.state.friends} />
+      </div>
+    )
+  }
+}
+
+class ShowList extends React.Component {
+  render() {
+    var listItems = this.props.names.map(function (friend) {
+      return <li> {friend} </li>;
+    });
+    return (
+      <div>
+        <h3> Friends </h3>
+        <ul className="App-list">
+          {listItems}
+        </ul>
+      </div>
+    )
+  }
+}
+
 class App extends React.Component {
   render() {
     return (
@@ -45,6 +130,7 @@ class App extends React.Component {
         </header>
         <HelloUser />
         <HelloOtherUser name="Tyler" />
+        <FriendsContainer />
       </div>
     );
   }
